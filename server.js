@@ -77,24 +77,24 @@ addRole = () => {
       .prompt([
         {
           type: 'input',
-          name: 'addRoleTitle',
+          name: 'title',
           message: "Please enter the title of this role."
         },
         {
           type: 'input',
-          name: 'addRoleSalary',
+          name: 'salary',
           message: "Please enter the salary for the designated role."
         },
         {
           type: 'input',
-          name: 'addRoleDepartment',
+          name: 'department',
           message: "Please enter the relative number to the employees role."
         }
     ])
     .then(selections => {
-      db.query('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', [selections.addRoleTile, selections.addRoleSalary, selections.addRoleDepartment], (err, rows)=> {
+      userConnect.query('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', [selections.addRoleTile, selections.addRoleSalary, selections.addRoleDepartment], (err, rows)=> {
         console.log('Here is an updated list of roles!');
-        db.query('SELECT * FROM role', (err,rows) => {
+        userConnect.query('SELECT * FROM role', (err,rows) => {
           console.table(rows)})
       })
       employeeMenu();
@@ -105,12 +105,12 @@ addEmployee = () => {
     .prompt([
       {
         type: 'input',
-        name: 'first_name',
+        name: 'first name',
         message: "Please enter the employees first name."
       },
       {
         type: 'input',
-        name: 'last_name',
+        name: 'last name',
         message: "Please enter the employees last name."
       },
       {
@@ -125,9 +125,9 @@ addEmployee = () => {
       }
       ])
     .then(selections => {
-      db.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [selections.first_name, selections.last_name, selections.role_id, selections.manager_id], (err, rows)=> {
+      userConnect.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [selections.first_name, selections.last_name, selections.role_id, selections.manager_id], (err, rows)=> {
         console.log('Here is an updated list your employees.');
-        db.query('SELECT * FROM employee', (err,rows) => {
+        userConnect.query('SELECT * FROM employee', (err,rows) => {
           console.table(rows)})
       })
       employeeMenu();
