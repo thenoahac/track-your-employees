@@ -1,23 +1,24 @@
 //Packages required
-const mysql = require('mysql2')
+const env = require("dotenv").config();
+const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const express = require('express');
 const consoleTable = require('console.table');
 
-const PORT = process.env.PORT = 3001;
+const PORT = process.env.PORT | 3001;
 
 const userConnect = mysql.createConnection(
     {
-    host: "localhost",
-    user: "root",
-    password: "123456",
-    database: "employee_db"
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
     }
 );
 
 userConnect.connect((err) => {
     if(err){
-        console.log("Please connect to the database: employee_db");
+        console.log(err);
         return;
     }
 })

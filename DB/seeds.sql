@@ -1,10 +1,10 @@
 USE employees_db;
 
 INSERT INTO department(name) VALUES
-("Administration"),
-("Finance"),
-("Human Resources"),
-("Marketing");
+("Front End Team"),
+("Back End Team"),
+("Universal Team"),
+("Deployment Team");
 
 INSERT INTO roles(role_position, salary, department_id) VALUES
 ("Front End Engineer", 80000, 1),
@@ -15,8 +15,8 @@ INSERT INTO roles(role_position, salary, department_id) VALUES
 INSERT INTO employee(first_name, last_name, role_id, manager_id)VALUES
 ("Jane", "Doe", 1, null),
 ("John", "Doe", 2, null),
-("James", "Smith", 3, 1),
-("Maria", "Garcia", 3, 2),
+("James", "Smith", 4, 1),
+("Maria", "Garcia", 4, 2),
 ("Jane", "Doe", 1, null),
 ("Patricia", "Lane", 2, null),
-("Adam", "Wayne", 4, null),
+("Adam", "Wayne", 3, null),
