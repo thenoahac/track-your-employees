@@ -29,7 +29,7 @@ const employeeMenu = () => {
     inquirer.prompt(
         {
             type: 'list',
-            name: 'Choice',
+            name: 'choice',
             message: 'Please select an option below',
             choices: [
                 "View Departments",
@@ -43,17 +43,19 @@ const employeeMenu = () => {
         })
      .then((selections) => {
     const {choice} = selections; 
-
+      console.log(choice, typeof choice)
     if (choice === 'View Departments') {
-      db.query('SELECT * FROM department', (err,rows) => {
+      userConnect.query('SELECT * FROM department', (err,rows) => {
         console.log('Here are all the departments.');
         console.table(rows)
+        employeeMenu();
     })};
 
     if (choice === 'View Employees') {
-      db.query('SELECT * FROM employee', (err,rows) => {
+      userConnect.query('SELECT * FROM employee', (err,rows) => {
         console.log('Here are all employees.');
         console.table(rows)
+        employeeMenu();
     })};
 
     if (choice === 'Add Role') {
@@ -93,9 +95,10 @@ addRole = () => {
         }
     ])
     .then(selections => {
-      userConnect.query('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', [selections.addRoleTile, selections.addRoleSalary, selections.addRoleDepartment], (err, rows)=> {
+      userConnect.query('INSERT INTO roles (role_position, salary, department_id) VALUES (?, ?, ?)', [selections.title, selections.salary, selections.department], (err, rows)=> {
+        if (err) console.log(err);
         console.log('Here is an updated list of roles!');
-        userConnect.query('SELECT * FROM role', (err,rows) => {
+        userConnect.query('SELECT * FROM roles', (err,rows) => {
           console.table(rows)})
       })
       employeeMenu();
@@ -133,3 +136,4 @@ addEmployee = () => {
       })
       employeeMenu();
 })};
+employeeMenu();
