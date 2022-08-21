@@ -36,8 +36,7 @@ const employeeMenu = () => {
                 "View Employees",
                 "Add Role",
                 "Add Employee",
-                "Remove Employee",
-                "Update Employee Role",
+                "Add Department",
                 "Exit"
             ]
         })
@@ -66,12 +65,16 @@ const employeeMenu = () => {
       addEmployee();
     };
 
-    if (choice === 'Remove Employee') {
-      removeEmployee();
+    if (choice === 'View Employees') {
+      allEmployees();
     };
 
-    if (choice === ' Update Employee Role') {
+    if (choice === 'Update Employee Role') {
       updateEmployeeRole();
+    }
+
+    if (choice === 'Add Department') {
+      addDepartment();
     }
   })};
 
@@ -136,4 +139,32 @@ addEmployee = () => {
       })
       employeeMenu();
 })};
+
+  addDepartment = () => {
+    inquirer
+      .prompt([
+        {
+          type: 'input',
+          name: 'department',
+          message: 'Please enter the name of the department you would like to add.',
+        }
+      ]).then(selections => {
+        userConnect.query('INSERT INTO department (name) VALUES (?)', [selections.name], (err, rows)=> {
+          console.log('Here is an updated list of your departments.');
+          userConnect.query('SELECT * FROM department', (err,rows) => {
+            console.table(rows)})
+        })
+        employeeMenu();
+      })};
+
+      // updateEmployeeRole = () => {
+      //   inquirer
+      //     .prompt([
+      //       {
+      //         type: 'input',
+      //         name: 'update',
+      //         message: 'Please select a role you would to move this employee to'
+      //       }
+      //     ])
+      // }
 employeeMenu();
